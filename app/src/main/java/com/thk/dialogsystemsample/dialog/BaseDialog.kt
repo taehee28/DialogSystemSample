@@ -8,11 +8,11 @@ import android.widget.Button
 import androidx.fragment.app.DialogFragment
 import androidx.viewbinding.ViewBinding
 import com.thk.dialogsystemsample.databinding.DialogBaseBinding
-import com.thk.dialogsystemsample.dialog.model.BaseDialogConfig
+import com.thk.dialogsystemsample.dialog.model.DialogConfig
 import com.thk.dialogsystemsample.dialog.model.DialogButtonConfig
 import com.thk.dialogsystemsample.util.getDeviceWidth
 
-abstract class BaseDialog<DC : BaseDialogConfig, VB : ViewBinding> : DialogFragment() {
+abstract class BaseDialog<DC : DialogConfig, VB : ViewBinding> : DialogFragment() {
     // 베이스 다이얼로그 레이아웃의 view binding
     private var _baseBinding: DialogBaseBinding? = null
     private val baseBinding
@@ -43,7 +43,7 @@ abstract class BaseDialog<DC : BaseDialogConfig, VB : ViewBinding> : DialogFragm
     /**
      * 다이얼로그를 사용하는 곳에서 다이얼로그 종류에 맞게 설정할 수 있습니다.
      *
-     * @param config [BaseDialogConfig]를 구현하는 데이터 클래스
+     * @param config [DialogConfig]를 구현하는 데이터 클래스
      * @return 바로 [show]를 호출할 수 있도록 다이얼로그를 반환합니다.
      */
     fun set(config: DC?): BaseDialog<DC, VB> {
