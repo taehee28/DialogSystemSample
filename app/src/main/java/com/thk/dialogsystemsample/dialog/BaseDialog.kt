@@ -26,6 +26,9 @@ abstract class BaseDialog<DC : DialogConfig, VB : ViewBinding> : DialogFragment(
     // 다이얼로그 설정 값을 저장하는 변수
     private var dialogConfig: DC? = null
 
+    // positive 버튼이 눌렸는지 여부
+    protected var isPositiveClicked: Boolean = false
+
     /**
      * [BaseDialog]의 contentView에 얹어질 레이아웃의 ViewBinding을 제공하는 메서드입니다.
      */
@@ -75,14 +78,22 @@ abstract class BaseDialog<DC : DialogConfig, VB : ViewBinding> : DialogFragment(
 
         baseBinding.contentView.addView(binding.root)
 
-        setButtonConfig(
-            button = baseBinding.btnPositive,
-            config = dialogConfig?.positiveButtonConfig
-        )
-        setButtonConfig(
-            button = baseBinding.btnNegative,
-            config = dialogConfig?.negativeButtonConfig
-        )
+
+        baseBinding.btnPositive.apply {
+            setButtonConfig(button = this, config = dialogConfig?.positiveButtonConfig)
+            setOnClickListener {
+                dialogConfig?.positiveButtonConfig?.onClick?.invoke(it)
+                isPositiveClicked = true
+                dismiss()
+            }
+        }
+        baseBinding.btnNegative.apply {
+            setButtonConfig(button = this, config = dialogConfig?.negativeButtonConfig)
+            setOnClickListener {
+                dialogConfig?.negativeButtonConfig?.onClick?.invoke(it)
+                dismiss()
+            }
+        }
     }
 
     /**
@@ -98,11 +109,6 @@ abstract class BaseDialog<DC : DialogConfig, VB : ViewBinding> : DialogFragment(
             } else {
                 text = config.text
                 View.VISIBLE
-            }
-
-            setOnClickListener {
-                config?.onClick?.invoke(it)
-                dismiss()
             }
         }
     }

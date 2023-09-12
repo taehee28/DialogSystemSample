@@ -23,11 +23,11 @@
         android:text="no title dialog" />
 
     <Button
-        android:id="@+id/btn_view_dialog_1"
+        android:id="@+id/btn_list_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:text="view dialog 1" />
+        android:text="list dialog" />
 
     <Button
         android:id="@+id/btn_view_dialog_2"

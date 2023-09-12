@@ -8,7 +8,7 @@ import android.text.Spannable
 data class ListDialogConfig<T>(
     val title: Spannable,
     val items: List<T>,
-    val onDismissed: ((selectedValue: T?) -> Unit)? = null,
+    val onReturnValue: ((selectedValue: T?) -> Unit)? = null,
     override val positiveButtonConfig: DialogButtonConfig? = null,
     override val negativeButtonConfig: DialogButtonConfig? = null,
     override val isCancelable: Boolean = false

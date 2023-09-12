@@ -13,7 +13,7 @@ import com.thk.dialogsystemsample.dialog.model.ListDialogConfig
 class ListDialog : BaseDialog<ListDialogConfig<String>, DialogListBinding>() {
     // 다이얼로그가 사라질 때 선택한 값 반환하도록 함
     private var selectedValue: String? = null
-    private var onDismissed: ((String?) -> Unit)? = null
+    private var onReturnValue: ((String?) -> Unit)? = null
 
     override fun getContentBinding(
         inflater: LayoutInflater,
@@ -23,7 +23,7 @@ class ListDialog : BaseDialog<ListDialogConfig<String>, DialogListBinding>() {
     }
 
     override fun initConfig(config: ListDialogConfig<String>) {
-        onDismissed = config.onDismissed
+        onReturnValue = config.onReturnValue
 
         binding.tvTitle.text = config.title
 
@@ -33,8 +33,10 @@ class ListDialog : BaseDialog<ListDialogConfig<String>, DialogListBinding>() {
     }
 
     override fun onDismiss(dialog: DialogInterface) {
-        onDismissed?.invoke(selectedValue)
-        onDismissed = null
+        if (isPositiveClicked) {
+            onReturnValue?.invoke(selectedValue)
+        }
+        onReturnValue = null
         selectedValue = null
         super.onDismiss(dialog)
     }

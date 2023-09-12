@@ -6,9 +6,6 @@ import android.util.Log
 import androidx.core.text.toSpannable
 import com.thk.dialogsystemsample.databinding.ActivityMainBinding
 import com.thk.dialogsystemsample.dialog.DialogFactory
-import com.thk.dialogsystemsample.dialog.ListDialog
-import com.thk.dialogsystemsample.dialog.NoTitleDialog
-import com.thk.dialogsystemsample.dialog.TitleDialog
 import com.thk.dialogsystemsample.dialog.model.DialogButtonConfig
 import com.thk.dialogsystemsample.dialog.model.ListDialogConfig
 import com.thk.dialogsystemsample.dialog.model.NoTitleDialogConfig
@@ -49,17 +46,18 @@ class MainActivity : AppCompatActivity() {
                     .show(supportFragmentManager, null)
             }
 
-            btnViewDialog1.setOnClickListener {
+            btnListDialog.setOnClickListener {
                 DialogFactory
                     .listDialog
                     .set(
                         config = ListDialogConfig(
                             title = "타이틀입니다.".toSpannable(),
                             items = listOf("첫번째", "두번째", "세번째", "네번째", "다섯번째"),
-                            onDismissed = {
+                            onReturnValue = {
                                 Log.d("TAG", ">> selected value = $it")
                             },
-                            positiveButtonConfig = DialogButtonConfig("확인")
+                            positiveButtonConfig = DialogButtonConfig("확인"),
+                            negativeButtonConfig = DialogButtonConfig("취소")
                         )
                     )
                     .show(supportFragmentManager, null)
