@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.core.text.toSpannable
 import com.thk.dialogsystemsample.databinding.ActivityMainBinding
+import com.thk.dialogsystemsample.dialog.DialogFactory
 import com.thk.dialogsystemsample.dialog.ListDialog
 import com.thk.dialogsystemsample.dialog.NoTitleDialog
 import com.thk.dialogsystemsample.dialog.TitleDialog
@@ -23,7 +24,8 @@ class MainActivity : AppCompatActivity() {
 
         binding.apply {
             btnTitleDialog.setOnClickListener {
-                TitleDialog()
+                DialogFactory
+                    .titleDialog
                     .set(
                         config = TitleDialogConfig(
                             title = "안녕하세요.".toSpannable(),
@@ -35,7 +37,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             btnNoTitleDialog.setOnClickListener {
-                NoTitleDialog()
+                DialogFactory
+                    .noTitleDialog
                     .set(
                         config = NoTitleDialogConfig(
                             content = "내용입니다.".toSpannable(),
@@ -47,7 +50,8 @@ class MainActivity : AppCompatActivity() {
             }
 
             btnViewDialog1.setOnClickListener {
-                ListDialog()
+                DialogFactory
+                    .listDialog
                     .set(
                         config = ListDialogConfig(
                             title = "타이틀입니다.".toSpannable(),
