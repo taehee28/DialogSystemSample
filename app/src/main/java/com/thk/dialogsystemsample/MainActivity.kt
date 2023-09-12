@@ -2,11 +2,14 @@ package com.thk.dialogsystemsample
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.core.text.toSpannable
 import com.thk.dialogsystemsample.databinding.ActivityMainBinding
+import com.thk.dialogsystemsample.dialog.ListDialog
 import com.thk.dialogsystemsample.dialog.NoTitleDialog
 import com.thk.dialogsystemsample.dialog.TitleDialog
 import com.thk.dialogsystemsample.dialog.model.DialogButtonConfig
+import com.thk.dialogsystemsample.dialog.model.ListDialogConfig
 import com.thk.dialogsystemsample.dialog.model.NoTitleDialogConfig
 import com.thk.dialogsystemsample.dialog.model.TitleDialogConfig
 
@@ -38,6 +41,21 @@ class MainActivity : AppCompatActivity() {
                             content = "내용입니다.".toSpannable(),
                             positiveButtonConfig = DialogButtonConfig("닫기"),
                             isCancelable = false
+                        )
+                    )
+                    .show(supportFragmentManager, null)
+            }
+
+            btnViewDialog1.setOnClickListener {
+                ListDialog()
+                    .set(
+                        config = ListDialogConfig(
+                            title = "타이틀입니다.".toSpannable(),
+                            items = listOf("첫번째", "두번째", "세번째", "네번째", "다섯번째"),
+                            onDismissed = {
+                                Log.d("TAG", ">> selected value = $it")
+                            },
+                            positiveButtonConfig = DialogButtonConfig("확인")
                         )
                     )
                     .show(supportFragmentManager, null)

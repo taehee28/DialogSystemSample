@@ -34,3 +34,12 @@ data class NoTitleDialogConfig(
     override val negativeButtonConfig: DialogButtonConfig? = null,
     override val isCancelable: Boolean = true
 ) : BaseDialogConfig
+
+data class ListDialogConfig<T>(
+    val title: Spannable,
+    val items: List<T>,
+    val onDismissed: ((selectedValue: T?) -> Unit)? = null,
+    override val positiveButtonConfig: DialogButtonConfig? = null,
+    override val negativeButtonConfig: DialogButtonConfig? = null,
+    override val isCancelable: Boolean = true
+) : BaseDialogConfig
