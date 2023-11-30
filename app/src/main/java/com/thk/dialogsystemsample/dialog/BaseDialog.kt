@@ -92,7 +92,7 @@ abstract class BaseDialog<DC : DialogConfig, VB : ViewBinding> : DialogFragment(
         super.onViewCreated(view, savedInstanceState)
 
         _binding = getContentBinding(
-            LayoutInflater.from(baseBinding.contentView.context),
+            layoutInflater,
             baseBinding.contentView
         )
 
