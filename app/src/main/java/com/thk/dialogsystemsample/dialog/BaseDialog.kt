@@ -33,10 +33,23 @@ abstract class BaseDialog<DC : DialogConfig, VB : ViewBinding> : DialogFragment(
     // 로딩 인디케이터 표시 플래그
     protected var isLoading: Boolean by Delegates.observable(false) { _, _, newValue ->
         if (newValue) {
-            baseBinding.groupButtons.visibility = View.INVISIBLE
+            // FIXME: 버튼을 설정하지 않으면 버튼 visibility가 Gone인데
+            //        인디케이터 플래그 때문에 안보여야 하는 버튼의 visibility가 설정됨.
+            //        깔끔한 방법 찾기
+            if (baseBinding.btnPositive.visibility != View.GONE) {
+                baseBinding.btnPositive.visibility = View.INVISIBLE
+            }
+            if (baseBinding.btnNegative.visibility != View.GONE) {
+                baseBinding.btnNegative.visibility = View.INVISIBLE
+            }
             baseBinding.indicatorLoading.visibility = View.VISIBLE
         } else {
-            baseBinding.groupButtons.visibility = View.VISIBLE
+            if (baseBinding.btnPositive.visibility != View.GONE) {
+                baseBinding.btnPositive.visibility = View.VISIBLE
+            }
+            if (baseBinding.btnNegative.visibility != View.GONE) {
+                baseBinding.btnNegative.visibility = View.VISIBLE
+            }
             baseBinding.indicatorLoading.visibility = View.GONE
         }
     }

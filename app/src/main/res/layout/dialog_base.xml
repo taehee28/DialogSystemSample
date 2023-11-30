@@ -12,13 +12,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
-    <androidx.constraintlayout.widget.Group
-        android:id="@+id/group_buttons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        app:constraint_referenced_ids="btn_negative, btn_positive"/>
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_negative"
         android:layout_width="0dp"
