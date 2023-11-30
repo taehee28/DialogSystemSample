@@ -10,6 +10,7 @@ import com.thk.dialogsystemsample.dialog.model.DialogButtonConfig
 import com.thk.dialogsystemsample.dialog.model.ListDialogConfig
 import com.thk.dialogsystemsample.dialog.model.NoTitleDialogConfig
 import com.thk.dialogsystemsample.dialog.model.TitleDialogConfig
+import com.thk.dialogsystemsample.dialog.model.WorkingDialogConfig
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -58,6 +59,20 @@ class MainActivity : AppCompatActivity() {
                             },
                             positiveButtonConfig = DialogButtonConfig("확인"),
                             negativeButtonConfig = DialogButtonConfig("취소")
+                        )
+                    )
+                    .show(supportFragmentManager, null)
+            }
+
+            btnWorkingDialog.setOnClickListener {
+                DialogFactory
+                    .workingDialog
+                    .set(
+                        config = WorkingDialogConfig(
+                            positiveButtonConfig = DialogButtonConfig("확인"),
+                            negativeButtonConfig = DialogButtonConfig("취소") {
+                                it.dismiss()
+                            }
                         )
                     )
                     .show(supportFragmentManager, null)

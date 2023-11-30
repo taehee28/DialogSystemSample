@@ -10,4 +10,7 @@ object DialogFactory {
 
     val listDialog
         get() = ListDialog()
+
+    val workingDialog
+        get() = WorkingDialog()
 }

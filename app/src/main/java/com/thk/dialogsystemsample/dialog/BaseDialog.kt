@@ -11,6 +11,7 @@ import com.thk.dialogsystemsample.databinding.DialogBaseBinding
 import com.thk.dialogsystemsample.dialog.model.DialogConfig
 import com.thk.dialogsystemsample.dialog.model.DialogButtonConfig
 import com.thk.dialogsystemsample.util.getDeviceWidth
+import kotlin.properties.Delegates
 
 abstract class BaseDialog<DC : DialogConfig, VB : ViewBinding> : DialogFragment() {
     // 베이스 다이얼로그 레이아웃의 view binding
@@ -28,6 +29,17 @@ abstract class BaseDialog<DC : DialogConfig, VB : ViewBinding> : DialogFragment(
 
     // positive 버튼이 눌렸는지 여부
     protected var isPositiveClicked: Boolean = false
+
+    // 로딩 인디케이터 표시 플래그
+    protected var isLoading: Boolean by Delegates.observable(false) { _, _, newValue ->
+        if (newValue) {
+            baseBinding.groupButtons.visibility = View.INVISIBLE
+            baseBinding.indicatorLoading.visibility = View.VISIBLE
+        } else {
+            baseBinding.groupButtons.visibility = View.VISIBLE
+            baseBinding.indicatorLoading.visibility = View.GONE
+        }
+    }
 
     /**
      * [BaseDialog]의 contentView에 얹어질 레이아웃의 ViewBinding을 제공하는 메서드입니다.
@@ -79,19 +91,18 @@ abstract class BaseDialog<DC : DialogConfig, VB : ViewBinding> : DialogFragment(
         baseBinding.contentView.addView(binding.root)
 
 
+        // 호출하는 곳에서 onClick을 설정하지 않고 null로 줬을때만 dismiss 실행
         baseBinding.btnPositive.apply {
             setButtonConfig(button = this, config = dialogConfig?.positiveButtonConfig)
             setOnClickListener {
-                dialogConfig?.positiveButtonConfig?.onClick?.invoke(it)
                 isPositiveClicked = true
-                dismiss()
+                dialogConfig?.positiveButtonConfig?.onClick?.invoke(this@BaseDialog) ?: dismiss()
             }
         }
         baseBinding.btnNegative.apply {
             setButtonConfig(button = this, config = dialogConfig?.negativeButtonConfig)
             setOnClickListener {
-                dialogConfig?.negativeButtonConfig?.onClick?.invoke(it)
-                dismiss()
+                dialogConfig?.negativeButtonConfig?.onClick?.invoke(this@BaseDialog) ?: dismiss()
             }
         }
     }

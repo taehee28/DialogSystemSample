@@ -12,6 +12,13 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_buttons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:constraint_referenced_ids="btn_negative, btn_positive"/>
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_negative"
         android:layout_width="0dp"
@@ -36,5 +43,19 @@
         app:layout_constraintTop_toBottomOf="@id/contentView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/indicator_loading"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:progress="100"
+        app:trackThickness="7dp"
+        app:trackCornerRadius="10dp"
+        android:indeterminate="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_negative"
+        app:layout_constraintBottom_toBottomOf="@id/btn_negative"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
